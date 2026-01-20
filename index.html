@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aman AdBlock - Ultimate System</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Aman AdBlock">
+
+    <style>
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        body { background-color: #000; color: #00ff00; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0; overflow-x: hidden; }
+
+        #offline-screen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.98); color: #ff0000; z-index: 10000;
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+        .offline-box { border: 2px solid #ff0000; padding: 30px; background: #000; }
+
+        .header-warning {
+            background: rgba(220, 0, 0, 0.9); color: white; padding: 15px 0; font-size: 14px; font-weight: bold;
+            border-bottom: 3px solid #fff; margin-top: 45px; display: flex; white-space: nowrap; overflow: hidden;
+        }
+        #warning-text { display: inline-block; padding-left: 100%; animation: slideText 75s linear infinite; }
+        @keyframes slideText { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        .container { padding: 20px; max-width: 400px; margin: 20px auto; background: rgba(0, 0, 0, 0.85); border: 1px solid #00ff00; border-radius: 15px; box-shadow: 0 0 25px #00ff00; }
+        .flags span { border: 1px solid #00ff00; padding: 8px; cursor: pointer; font-size: 24px; margin: 5px; display: inline-block; border-radius: 5px; }
+
+        .admin-info { margin: 15px 0; border: 1px dashed #00ff00; padding: 10px; cursor: pointer; }
+        .iban-box { background: rgba(0, 255, 0, 0.1); padding: 10px; margin-top: 5px; font-size: 13px; }
+
+        .pricing { display: flex; gap: 10px; margin: 15px 0; }
+        .price-card { flex: 1; border: 2px solid #00ff00; padding: 15px; cursor: pointer; transition: 0.3s; background: rgba(0, 255, 0, 0.05); font-size: 14px; }
+        .price-card.selected { background: #00ff00; color: #000; font-weight: bold; }
+
+        .btn { border: 2px solid #00ff00; background: none; color: #00ff00; padding: 18px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; font-size: 16px; text-transform: uppercase; border-radius: 10px; text-decoration: none; display: block; }
+        .btn-filled { background: #00ff00; color: #000; }
+        
+        /* Täze AppGeyser Düwmesi */
+        .btn-download { background: #ffcc00; color: #000; border: 2px solid #fff; margin-bottom: 20px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .input-field { background: #000; border: 2px solid #ffcc00; color: #ffcc00; padding: 15px; width: 100%; text-align: center; font-size: 20px; margin: 15px 0; outline: none; box-sizing: border-box; }
+        #instruction { display: none; padding-top: 20px; border-top: 1px dashed #00ff00; text-align: left; }
+    </style>
+</head>
+<body ononline="updateNetStatus()" onoffline="updateNetStatus()">
+
+    <div id="offline-screen">
+        <div class="offline-box">
+            <h3>> SYSTEM OFFLINE</h3>
+            <p>> INTERNET BAGLANYŞYGYNY BARLAŇ</p>
+        </div>
+    </div>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="header-warning">
+        <div id="warning-text">
+            ⚠️ BU KOD DIŇE 1 ADAM ÜÇINDIR! PAÝLAŞYLSA BLOKLANAR! &nbsp;&nbsp; ⚠️ THIS CODE IS FOR 1 PERSON ONLY!
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="https://appsgeyser.io/19457703/Aman%20AdBlock" class="btn btn-download">📥 PROGRAMMANY ÝÜKLE (APK)</a>
+
+        <div class="flags">
+            <span>🇹🇲</span><span>🇹🇷</span><span>🇷🇺</span><span>🇺🇸</span>
+        </div>
+
+        <div class="admin-info" onclick="copyText('AMAN HAYITMURADOV')">
+            <h1 style="margin:0; font-size: 20px;">AMAN HAYITMURADOV</h1>
+            <small style="letter-spacing: 3px;">[ CYBER ARCHITECT ]</small>
+        </div>
+
+        <div class="iban-box" onclick="copyText('TR91 0015 7000 0000 0201 1511 63')">
+            <small style="color:#888;">PAYMENT GATEWAY (IBAN):</small><br>
+            <b>TR91 0015 7000 0000 0201 1511 63</b>
+        </div>
+
+        <div style="font-size: 12px; margin-top: 15px;">PAKET SAÝLAŇ:</div>
+        <div class="pricing">
+            <div class="price-card" onclick="selectPlan(this)">
+                <span>1 AÝ</span><br><b>200 TL</b>
+            </div>
+            <div class="price-card" onclick="selectPlan(this)">
+                <span>1 ÝYL</span><br><b>1000 TL</b>
+            </div>
+        </div>
+
+        <button class="btn" onclick="window.location.href='https://wa.me/905XXXXXXXXX'">TÖLEG ETDIM (WHATSAPP)</button>
+
+        <input type="text" id="dns-code" class="input-field" placeholder="KODY ÝAZYŇ">
+        <button class="btn btn-filled" onclick="verifyCode()">ULGAMY IŞLET</button>
+
+        <div id="instruction">
+            <p style="color: #ffcc00; text-align: center;">✓ ACCESS GRANTED</p>
+            <p style="color: #00ff00;">Sazlamalar -> Baglanyşyk -> Özel DNS -> Host:</p>
+            <p style="background: #222; padding: 10px; border-radius: 5px;"><b>as12bc.dns.nextdns.io</b></p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "01";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0";
+            ctx.font = fontSize + "px arial";
+            drops.forEach((y, i) => {
+                ctx.fillText(letters[Math.floor(Math.random() * letters.length)], i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 35);
+
+        function verifyCode() {
+            if(document.getElementById('dns-code').value === "AMAN2026") {
+                document.getElementById('instruction').style.display = "block";
+            } else { alert("Kod ýalňyş!"); }
+        }
+
+        function selectPlan(el) {
+            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function copyText(txt) {
+            navigator.clipboard.writeText(txt);
+            alert("Gopyalandy!");
+        }
+
+        function updateNetStatus() {
+            document.getElementById('offline-screen').style.display = navigator.onLine ? "none" : "flex";
+        }
+    </script>
+</body>
+</html>
