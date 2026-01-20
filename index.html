@@ -3,149 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman AdBlock - Professional</title>
+    <title>Aman AdBlock - Ultimate Protection</title>
     <style>
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
-        body { background-color: #000; color: #00ff00; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 0; overflow-x: hidden; }
+        body { background-color: black; color: #00FF41; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding: 15px; }
+        .matrix-container { border: 2px solid #00FF41; padding: 20px; border-radius: 10px; box-shadow: 0 0 20px #00FF41; display: inline-block; width: 95%; max-width: 450px; }
         
-        /* Internet Status */
-        #offline-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); color: #ff0000; z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        /* Seniň sary düwmeleriň stili */
+        .btn-yellow { background-color: #f1c40f; color: black; padding: 15px 20px; text-decoration: none; font-weight: bold; border-radius: 8px; display: block; margin: 10px auto; width: 85%; box-shadow: 0 4px #d4ac0d; transition: 0.2s; }
+        .btn-yellow:active { box-shadow: 0 2px #d4ac0d; transform: translateY(2px); }
+
+        .status-panel { background: rgba(0, 255, 65, 0.1); border: 1px dashed #00FF41; padding: 10px; margin: 15px 0; border-radius: 5px; }
+        .feature-grid { text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8em; margin: 15px 0; }
         
-        /* Moving Warning */
-        .header-warning { background: rgba(200, 0, 0, 0.8); color: white; padding: 10px 0; font-size: 13px; font-weight: bold; border-bottom: 2px solid #fff; white-space: nowrap; overflow: hidden; position: relative; }
-        #warning-text { display: inline-block; animation: slideText 25s linear infinite; }
-        @keyframes slideText { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-        .container { padding: 20px; max-width: 380px; margin: 15px auto; background: rgba(0, 0, 0, 0.85); border: 1px solid #00ff00; border-radius: 15px; box-shadow: 0 0 20px #00ff00; }
-        .flags span { border: 1px solid #00ff00; padding: 5px 10px; cursor: pointer; font-size: 20px; margin: 3px; display: inline-block; border-radius: 5px; }
-        
-        .admin-info { margin: 15px 0; border: 1px dashed #00ff00; padding: 10px; cursor: pointer; }
-        .iban-box { background: rgba(0, 255, 0, 0.1); padding: 10px; margin: 10px 0; font-size: 13px; cursor: pointer; border: 1px solid #00ff00; }
-
-        .pricing { display: flex; gap: 10px; margin: 15px 0; }
-        .price-card { flex: 1; border: 2px solid #00ff00; padding: 10px; cursor: pointer; transition: 0.3s; font-size: 13px; }
-        .price-card.selected { background: #00ff00; color: #000; font-weight: bold; }
-        .promo { color: #ffcc00; font-size: 10px; display: block; }
-
-        .btn { border: 2px solid #00ff00; background: none; color: #00ff00; padding: 15px; width: 100%; margin: 10px 0; cursor: pointer; font-weight: bold; text-transform: uppercase; text-decoration: none; display: block; }
-        .btn-filled { background: #00ff00; color: #000; }
-        .btn-download { background: #ffcc00; color: #000; border: none; margin-bottom: 15px; }
-
-        .input-field { background: #000; border: 2px solid #ffcc00; color: #ffcc00; padding: 15px; width: 100%; text-align: center; font-size: 20px; margin: 15px 0; box-sizing: border-box; outline: none; }
-        #instruction { display: none; padding: 15px; border-top: 1px dashed #00ff00; text-align: left; margin-top: 10px; }
+        select { background: black; color: #00FF41; border: 1px solid #00FF41; padding: 10px; width: 100%; border-radius: 5px; margin-top: 10px; font-weight: bold; }
+        .price-tag { font-size: 1.2em; font-weight: bold; color: white; margin: 10px 0; border: 1px solid white; padding: 5px; display: inline-block; }
     </style>
 </head>
-<body ononline="updateStatus()" onoffline="updateStatus()">
+<body>
 
-    <div id="offline-screen">
-        <h2 id="off-txt">SYSTEM OFFLINE</h2>
-        <p>INTERNET BAGLANYŞYGYNY BARLAŇ!</p>
-    </div>
+    <a href="https://www.appgs.io/download/19461363" class="btn-yellow">
+        📥 INSTALL PROGRAMMA (ÝÜKLE)
+    </a>
 
-    <canvas id="matrix"></canvas>
+    <div class="matrix-container">
+        <h2 style="margin-top:0;">🛡️ AMAN ADBLOCK v2.0</h2>
 
-    <div class="header-warning">
-        <div id="warning-text">⚠️ <span id="slide-msg">BU KOD DIŇE 1 ADAM ÜÇINDIR! PAÝLAŞYLSA BLOKLANAR!</span> ⚠️</div>
-    </div>
-
-    <div class="container">
-        <a href="https://www.appgs.io/download/19461247" class="btn btn-download" id="dl-btn">📥 INSTALL PROGRAMMA (YÜKLE)</a>
-
-        <div class="flags">
-            <span onclick="setLang('tk')">🇹🇲</span>
-            <span onclick="setLang('tr')">🇹🇷</span>
-            <span onclick="setLang('ru')">🇷🇺</span>
-            <span onclick="setLang('en')">🇺🇸</span>
+        <div class="status-panel">
+            <div id="status">STATUS: <span style="color:white;">SECURED</span></div>
+            <div id="protection">PROTECTION: <span style="color:white;">ACTIVE</span></div>
         </div>
 
-        <div class="admin-info" onclick="copyIt('AMAN HAYITMURADOV')">
-            <h2 id="admin-name" style="margin:0;">AMAN HAYITMURADOV</h2>
-            <small id="role">[ CYBER ARCHITECT ]</small>
+        <div id="pricing">
+            <div class="price-tag">1 AÝLYK: 100 TL</div><br>
+            <div class="price-tag">MÖBETSİZ: 500 TL</div>
         </div>
 
-        <div class="iban-box" onclick="copyIt('TR91 0015 7000 0000 0201 1511 63')">
-            <small id="iban-head">IBAN (COPY):</small><br>
-            <b>TR91 0015 7000 0000 0201 1511 63</b>
+        <hr style="border-color: #00FF41;">
+
+        <div class="feature-grid" id="features">
+            <div>✅ Ad Blocking</div>
+            <div>✅ VPN Tunnel</div>
+            <div>✅ No Tracking</div>
+            <div>✅ Fast DNS</div>
+            <div>✅ Malware Shield</div>
+            <div>✅ 24/7 Support</div>
         </div>
 
-        <div id="plan-head" style="font-size: 12px;">PAKET SAÝLAŇ:</div>
-        <div class="pricing">
-            <div class="price-card" id="p1" onclick="selectP('1 AÝ / 1 MONTH', 100, this)">
-                <span class="promo">SALE</span> <span id="m1">1 AÝ</span><br><b>100 TL</b>
-            </div>
-            <div class="price-card" id="p2" onclick="selectP('1 ÝYL / 1 YEAR', 500, this)">
-                <span class="promo">SALE</span> <span id="y1">1 ÝYL</span><br><b>500 TL</b>
-            </div>
-        </div>
+        <select onchange="updateLang(this.value)">
+            <option value="tk">Türkmençe</option>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+        </select>
 
-        <button class="btn" id="wa-btn" onclick="sendWA()">TÖLEG ETDIM (WHATSAPP)</button>
-
-        <input type="text" id="dns-code" class="input-field" placeholder="KODY ÝAZYŇ">
-        <button class="btn btn-filled" id="run-btn" onclick="checkCode()">ULGAMY IŞLET</button>
-
-        <div id="instruction">
-            <p style="color: #ffcc00; text-align: center; font-weight: bold;">✓ ACCESS GRANTED</p>
-            <p>DNS HOST: <br><b style="font-size: 18px; color: #fff;">as12bc.dns.nextdns.io</b></p>
-            <p id="setup-txt" style="font-size: 11px; color: #888;">Sazlamalar -> Has köp baglanyşyk -> Hususy DNS bölüme goşuň.</p>
-        </div>
+        <a href="https://t.me/aman_adblock" class="btn-yellow" style="background-color: #3498db; color: white; box-shadow: 0 4px #2980b9; margin-top: 20px;">
+            💬 TELEGRAM SUPPORT
+        </a>
     </div>
 
     <script>
-        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const drops = Array(Math.floor(canvas.width/16)).fill(1);
-        function draw() {
-            ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = "#0f0"; ctx.font = "15px arial";
-            drops.forEach((y, i) => {
-                ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
-                if (y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++;
-            });
-        }
-        setInterval(draw, 35);
+        function updateLang(lang) {
+            const pricing = document.getElementById('pricing');
+            const status = document.getElementById('status');
+            const protection = document.getElementById('protection');
+            const features = document.getElementById('features');
 
-        let selectedPlan = "";
-        function selectP(p, price, el) {
-            selectedPlan = p;
-            document.querySelectorAll('.price-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function sendWA() {
-            if(!selectedPlan) { alert("Paket saýlaň! / Lütfen paket seçin!"); return; }
-            window.location.href = `https://wa.me/905XXXXXXXXX?text=Salam Aman, men ${selectedPlan} paket ucin toleg etdim.`;
-        }
-
-        function checkCode() {
-            if(document.getElementById('dns-code').value.toUpperCase() === "AMAN2026") {
-                document.getElementById('instruction').style.display = "block";
-            } else { alert("KOD ÝALŇYŞ!"); }
-        }
-
-        function copyIt(t) {
-            navigator.clipboard.writeText(t); alert("Göçürildi: " + t);
-        }
-
-        function updateStatus() {
-            document.getElementById('offline-screen').style.display = navigator.onLine ? "none" : "flex";
-        }
-
-        function setLang(l) {
-            const t = {
-                tk: ["BU KOD DIŇE 1 ADAM ÜÇINDIR!", "PAKET SAÝLAŇ", "1 AÝ", "1 ÝYL", "TÖLEG ETDIM", "KODY ÝAZYŇ", "ULGAMY IŞLET", "Sazlamalar -> Hususy DNS", "📥 PROGRAMMANY ÝÜKLE"],
-                tr: ["BU KOD SADECE 1 KİŞİLİKTİR!", "PAKET SEÇİN", "1 AY", "1 YIL", "ÖDEME YAPTIM", "KODU YAZIN", "SİSTEMİ ÇALIŞTIR", "Ayarlar -> Özel DNS", "📥 PROGRAMI YÜKLE"],
-                ru: ["ЭТОТ КОД ТОЛЬКО ДЛЯ 1 ЧЕЛОВЕКА!", "ВЫБERИТЕ ПАКЕТ", "1 МЕСЯЦ", "1 ГОД", "Я ОПЛАТИЛ", "ВВЕДИТЕ КОД", "ЗАПУСТИТЬ", "Настройки -> Частный DNS", "📥 СКАЧАТЬ ПРИЛОЖЕНИЕ"],
-                en: ["THIS CODE IS FOR 1 PERSON ONLY!", "SELECT PLAN", "1 MONTH", "1 YEAR", "I PAID", "ENTER CODE", "START SYSTEM", "Settings -> Private DNS", "📥 DOWNLOAD APP"]
-            };
-            document.getElementById('slide-msg').innerText = t[l][0];
-            document.getElementById('plan-head').innerText = t[l][1];
-            document.getElementById('m1').innerText = t[l][2];
-            document.getElementById('y1').innerText = t[l][3];
-            document.getElementById('wa-btn').innerText = t[l][4];
-            document.getElementById('dns-code').placeholder = t[l][5];
-            document.getElementById('run-btn').innerText = t[l][6];
-            document.getElementById('setup-txt').innerText = t[l][7];
-            document.getElementById('dl-btn').innerText = t[l][8];
+            if(lang === 'tk') {
+                pricing.innerHTML = '<div class="price-tag">1 AÝLYK: 100 TL</div><br><div class="price-tag">MÖBETSİZ: 500 TL</div>';
+                status.innerHTML = 'STATUS: <span style="color:white;">Goralan</span>';
+                protection.innerHTML = 'GORAG: <span style="color:white;">AKTİW</span>';
+                features.innerHTML = '<div>✅ Reklama Blok</div><div>✅ VPN Tunel</div><div>✅ Izleme Ýok</div><div>✅ Çalt DNS</div><div>✅ Gorag Galany</div><div>✅ 24/7 Goldaw</div>';
+            } else if(lang === 'ru') {
+                pricing.innerHTML = '<div class="price-tag">1 МЕСЯЦ: 100 TL</div><br><div class="price-tag">БЕЗЛИМИТ: 500 TL</div>';
+                status.innerHTML = 'СТАТУС: <span style="color:white;">ЗАЩИЩЕНО</span>';
+                protection.innerHTML = 'ЗАЩИТА: <span style="color:white;">АКТИВНА</span>';
+                features.innerHTML = '<div>✅ Блок Рекламы</div><div>✅ VPN Туннель</div><div>✅ Без Слежки</div><div>✅ Быстрый DNS</div><div>✅ Анти-Фишинг</div><div>✅ 24/7 Поддержка</div>';
+            } else if(lang === 'en') {
+                pricing.innerHTML = '<div class="price-tag">1 MONTH: 100 TL</div><br><div class="price-tag">LIFETIME: 500 TL</div>';
+                status.innerHTML = 'STATUS: <span style="color:white;">SECURED</span>';
+                protection.innerHTML = 'PROTECTION: <span style="color:white;">ACTIVE</span>';
+                features.innerHTML = '<div>✅ Ad Blocking</div><div>✅ VPN Tunnel</div><div>✅ No Tracking</div><div>✅ Fast DNS</div><div>✅ Malware Shield</div><div>✅ 24/7 Support</div>';
+            }
         }
     </script>
 </body>
